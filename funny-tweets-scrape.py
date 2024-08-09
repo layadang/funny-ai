@@ -1,8 +1,26 @@
 from bs4 import BeautifulSoup
+import pandas as pd
 import requests
+import csv
 
 url = "https://www.funnytweeter.com/"
-response = requests.get(url)
+all_tweets = []
 
-soup = BeautifulSoup(response.text, 'html.parser')
+def get_tweets(url_page):
+    response = requests.get(url_page)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    tweets = soup.find_all('blockquote')
+
+    i = 0
+    for tweet in tweets:
+        # get only tweets without pictures 
+        media_div = tweet.find('div', class_="media-fe flex-row")
+        if not media_div:
+            tweet_text = tweet.get_text()
+            all_tweets.append(tweet_text)
+            print(tweet_text)
+
+def save_tweets():
+    # save array to csv
+    pd.DataFrame({"tweets": all_tweets}).to_csv('data/all_tweets.csv', index=False)
 
