@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Annotate</title>
+</head>
+<body>
+    <div class="main">
+        <p><b>ID: {{ id }}</b></p>
+        <p>{{ tweet|safe }}</p>
+        <form method="POST">
+            <label>
+                <input type="radio" name="annotation" value="1"> Funny
+            </label>
+            <label>
+                <input type="radio" name="annotation" value="0"> Not Funny
+            </label>
+            <br><br>
+            <button type="submit">Next</button>
+        </form>
+    </div>
+
+</body>
+</html>
